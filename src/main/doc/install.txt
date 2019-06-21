@@ -1,0 +1,5 @@
+su - postgres -c "createuser --no-superuser --createdb --no-createrole --pwprompt nadarin"
+su - postgres -c "createdb --owner nadarin nadarin"
+
+su - postgres -c "psql -U nadarin nadarin -f /tmp/1002_squema.sql"
+su - postgres -c "psql -U nadarin nadarin -f /tmp/1003_datos.sql"

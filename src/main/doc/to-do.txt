@@ -1,0 +1,5 @@
+- Agregar las configuraciones de parametros, tareas
+- Agregar el dialogo de perfil de usuario y el cambio de password
+- Fichero de recursos en español actualizado
+ 
+    

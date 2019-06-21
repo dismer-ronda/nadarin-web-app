@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="es.pryades.nadarin.dal.ibatis.TaskMapper">
+
+	<sql id="es.pryades.nadarin.dal.ibatis.TaskMapper.fields">
+		tasks.id,
+		tasks.description,
+		tasks.month,
+		tasks.day,
+		tasks.hour,
+		tasks.minute,
+		tasks.times,
+		tasks.clazz,
+		tasks.details,
+		tasks.timezone,
+		tasks.language,
+		tasks.ref_user,
+		
+		users.name as user_name
+	</sql>
+
+	<sql id="es.pryades.nadarin.dal.ibatis.TaskMapper.joins">
+	    inner join users 
+	    on tasks.ref_user = users.id
+	</sql>
+
+	<sql id="es.pryades.nadarin.dal.ibatis.TaskMapper.where">
+		<where>
+			<if test="clazz != null">
+				AND tasks.clazz = #{clazz}
+			</if>
+			<if test="ref_user != null">
+				AND tasks.ref_user = #{ref_user}
+			</if>
+			<if test="id != null">
+				AND tasks.id = #{id}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="es.pryades.nadarin.dal.ibatis.TaskMapper.orderby">
+		<choose>
+			<when test="orderby.equals( 'clazz' )">
+				tasks.clazz
+			</when>
+			<when test="orderby.equals( 'description' )">
+				tasks.description
+			</when>
+			<otherwise>
+				tasks.id
+			</otherwise>
+		</choose>
+
+		<choose>
+			<when test="order.equalsIgnoreCase( 'asc' )">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+	</sql>
+
+	<select id="getNumberOfRows" parameterType="es.pryades.nadarin.dto.Query" resultType="long">
+		select 
+			count(distinct tasks.id) 
+		from 
+			tasks
+
+    	<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.joins" />
+		<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.where" />
+	</select>
+
+	<select id="getPage" parameterType="es.pryades.nadarin.dto.Query" resultType="es.pryades.nadarin.dto.Task">
+		select 
+			<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.fields" />
+		
+		from
+			tasks
+		
+   		<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.joins" />
+		<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.where" />
+
+		order by 
+			<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.orderby" />
+
+		LIMIT #{pageSize} OFFSET (#{pageSize} * (#{pageNumber} - 1))
+	</select>
+
+	<select id="getRows" parameterType="es.pryades.nadarin.dto.Query" resultType="es.pryades.nadarin.dto.Task">
+		select 
+			<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.fields" />
+		
+		from
+			tasks
+		
+    	<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.joins" />
+		<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.where" />
+		
+		order by 
+			<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.orderby" />
+	</select>
+
+	<select id="getRow" parameterType="es.pryades.nadarin.dto.Task" resultType="es.pryades.nadarin.dto.Task">
+		select
+			<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.fields" />
+		
+		from
+			tasks
+
+   		<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.joins" />
+		<include refid="es.pryades.nadarin.dal.ibatis.TaskMapper.where" />
+	</select>
+
+	<insert id="addRow" parameterType="es.pryades.nadarin.dto.Task">
+
+		<selectKey keyProperty="id" resultType="long" order="BEFORE">
+			SELECT nextval('gendat');
+		</selectKey>
+
+		insert into tasks
+		(
+			id,
+			description,
+			month,
+			day,
+			hour,
+			minute,
+			times,
+			clazz,
+			details,
+			timezone,
+			language,
+			ref_user
+		)
+		values
+		(
+			#{id},
+			#{description},
+			#{month},
+			#{day},
+			#{hour},
+			#{minute},
+			#{times},
+			#{clazz},
+			#{details},
+			#{timezone},
+			#{language},
+			#{ref_user}
+		)
+	</insert>
+
+	<update id="setRow" parameterType="es.pryades.nadarin.dto.Task">
+		update tasks set
+			ref_user=#{ref_user},
+			description=#{description},
+			month=#{month},
+			day=#{day},
+			hour=#{hour},
+			minute=#{minute},
+			times=#{times},
+			clazz=#{clazz},
+			details=#{details},
+			timezone=#{timezone},
+			language=#{language}
+		where id = #{id}
+	</update>
+
+	<update id="delRow" parameterType="es.pryades.nadarin.dto.Task">
+		delete from tasks where id = #{id}
+	</update>
+
+</mapper>
