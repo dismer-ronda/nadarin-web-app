@@ -77,36 +77,34 @@ public class UserView extends CrudView<User> {
 
     @Override
     protected String getCreatedMessage() {
-        return getTranslation("modalNewUser.operation.created.notification");
+        return getTranslation("usersconfig.operation.created.notification");
     }
 
     @Override
     protected String getUpdatedMessage() {
-        return getTranslation("modalNewUser.operation.updated.notification");
+        return getTranslation("usersconfig.operation.updated.notification");
     }
 
     @Override
     protected String getDeletedMessage() {
-        return getTranslation("modalNewUser.operation.deleted.notification");
+        return getTranslation("usersconfig.operation.deleted.notification");
     }
 
     @Override
     protected void setupGrid() {
-        final String prefix = "usersConfig.table.headerName.";
-
-        grid.addColumn(User::getName).setHeader(getTranslation(prefix + "name"));
-        grid.addColumn(User::getLogin).setHeader(getTranslation(prefix + "login"));
-        grid.addColumn(User::getEmail).setHeader(getTranslation(prefix + "email"));
-        grid.addColumn(User::getProfile_name).setHeader(getTranslation(prefix + "profile_name"));
+        grid.addColumn(User::getName).setHeader(getTranslation("usersconfig.table.name"));
+        grid.addColumn(User::getLogin).setHeader(getTranslation("usersconfig.table.login"));
+        grid.addColumn(User::getEmail).setHeader(getTranslation("usersconfig.table.email"));
+        grid.addColumn(User::getProfile_name).setHeader(getTranslation("usersconfig.table.profile_name"));
         grid.addColumn(new TextRenderer<>(user -> user.getTester().equals(0) ? getTranslation("words.no"):getTranslation("words.yes")))
-                .setHeader(getTranslation(prefix + "tester"));
+                .setHeader(getTranslation("usersconfig.table.tester"));
 
 
     }
 
     @Override
     protected String getDeleteConfirmMessage() {
-        return getTranslation("modalNewUser.confirm.delete");
+        return getTranslation("usersconfig.confirm.delete");
     }
 
     @Override

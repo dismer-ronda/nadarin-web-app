@@ -100,7 +100,15 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
     }
 
     public void updateTitle(boolean newEntity) {
-        getForm().getFormTitle().setText((newEntity ? "New" : "Edit"));
+        getForm().getFormTitle().setText((newEntity ? getNewTitle() : getEditTitle()));
+    }
+
+    protected String getEditTitle(){
+        return getTranslation("form.edit");
+    }
+
+    protected String getNewTitle(){
+        return getTranslation("form.new");
     }
 
     @Override

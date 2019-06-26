@@ -32,10 +32,6 @@ public class UserForm extends AbstractCrudForm<User> implements HasAppContext, H
 
     public UserForm(){
         super();
-
-        getButtons().setSaveText(getTranslation("words.save"));
-        getButtons().setCancelText(getTranslation("words.cancel"));
-        getButtons().setDeleteText(getTranslation("words.delete"));
     }
 
     @Override
@@ -52,9 +48,9 @@ public class UserForm extends AbstractCrudForm<User> implements HasAppContext, H
         tester.setItems(0, 1);
         tester.setRenderer(new TextRenderer<>(value -> value == 0 ? getTranslation("words.no"):getTranslation("words.yes")));
 
-        passwordStatus = new ComboBox<>(getTranslation("modalNewUser.password.status"));
+        passwordStatus = new ComboBox<>(getTranslation("usersconfig.password.status"));
         passwordStatus.setItems(0, 1, 2, 3, 4, 5);
-        passwordStatus.setItemLabelGenerator(value -> getTranslation("modalNewUser.password." + value));
+        passwordStatus.setItemLabelGenerator(value -> getTranslation("password.status." + value));
 
         getForm().add(nameField, loginField, passwordField, emailField, profilesComboBox, tester, passwordStatus);
         nameField.getElement().setAttribute("colspan", "2");

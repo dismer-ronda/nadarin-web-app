@@ -19,6 +19,10 @@ public class FormButtonsBar extends Div {
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         delete.getStyle().set("margin-right", "auto");
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+
+        save.setText(getTranslation("operation.save"));
+        cancel.setText(getTranslation("operation.cancel"));
+        delete.setText(getTranslation("operation.delete"));
     }
 
     public void setSaveText(String saveText) {
@@ -43,6 +47,18 @@ public class FormButtonsBar extends Div {
 
     public void setDeleteDisabled(boolean deleteDisabled) {
         delete.setEnabled(!deleteDisabled);
+    }
+
+    public void setSaveVisible(boolean visible) {
+        save.setVisible(visible);
+    }
+
+    public void setCancelVisible(boolean visible) {
+        cancel.setVisible(visible);
+    }
+
+    public void setDeleteVisible(boolean visible) {
+        delete.setVisible(visible);
     }
 
     public static class SaveEvent extends ComponentEvent<FormButtonsBar> {

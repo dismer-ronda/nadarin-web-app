@@ -48,7 +48,7 @@ public class SettingsView extends Composite<VerticalLayout> {
     }
 
     private void addUserTabs() {
-        Tab tabUser = new Tab(getTranslation("usersConfig.tabName"));
+        Tab tabUser = new Tab(getTranslation("usersconfig.tabname"));
         tabs.add(tabUser);
         UserView view = new UserView();
         tabsToView.put(tabUser, view);

@@ -17,7 +17,7 @@ public class UserSearchBar extends ConfigBar<UserQuery> {
 
     @Override
     protected String getAddText() {
-        return getTranslation("modalNewFilter.operation.add");
+        return getTranslation("operation.add");
     }
 
     @Override

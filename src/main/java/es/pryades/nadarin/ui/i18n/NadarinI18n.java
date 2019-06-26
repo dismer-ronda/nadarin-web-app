@@ -9,15 +9,15 @@ import java.util.*;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
-import static java.util.Locale.ENGLISH;
 import static java.util.ResourceBundle.getBundle;
 
 @Log4j
 public class NadarinI18n implements I18NProvider {
     public static final String RESOURCE_BUNDLE_NAME = "language";
+    private static final Locale LOCALE_ES = new Locale("es");
 
-    private static final ResourceBundle RESOURCE_BUNDLE_EN = getBundle(RESOURCE_BUNDLE_NAME , ENGLISH);
-    private static final List<Locale> providedLocales = unmodifiableList(asList(ENGLISH));
+    private static final ResourceBundle RESOURCE_BUNDLE_ES = getBundle(RESOURCE_BUNDLE_NAME , LOCALE_ES);
+    private static final List<Locale> providedLocales = unmodifiableList(asList(LOCALE_ES));
     private final Map<Locale, ResourceBundle> cache;
 
     public NadarinI18n() {
@@ -37,7 +37,8 @@ public class NadarinI18n implements I18NProvider {
             return "!";
         }
 
-        final ResourceBundle bundle = cache.get(locale);
+       // final ResourceBundle bundle = cache.get(locale);
+        final ResourceBundle bundle = cache.get(LOCALE_ES);
 
         if (bundle == null) {
             log.warn("No existen recursos para idioma " + locale);

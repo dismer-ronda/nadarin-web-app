@@ -13,6 +13,7 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.server.VaadinSession;
 import es.pryades.nadarin.common.Constants;
 import es.pryades.nadarin.ui.login.LoginView;
+import es.pryades.nadarin.ui.profile.ProfileDialog;
 import es.pryades.nadarin.ui.settings.SettingsView;
 
 @HtmlImport("styles.html")
@@ -25,10 +26,16 @@ public class MainLayout extends AbstractAppRouterLayout implements BeforeEnterOb
                 getAppLayout().getTranslation("targetsConfig.tabName"),
                 TargetsView.ROUTE));*/
         addMenuItem(appLayoutMenu, new AppLayoutMenuItem(VaadinIcon.COG.create(),
-                getAppLayout().getTranslation("ConfigurationDlg.title"),
+                getAppLayout().getTranslation("configuration.title"),
                 SettingsView.ROUTE));
+        addMenuItem(appLayoutMenu, new AppLayoutMenuItem(VaadinIcon.USER_CARD.create(),
+                getAppLayout().getTranslation("profile.title"),
+                e -> {
+                    ProfileDialog dialog = new ProfileDialog();
+                    dialog.open();
+                }));
         addMenuItem(appLayoutMenu, new AppLayoutMenuItem(VaadinIcon.POWER_OFF.create(),
-                "Salir",
+                getAppLayout().getTranslation("words.logout"),
                 e -> {
                     VaadinSession.getCurrent().setAttribute(Constants.USER_LOGGED_IN, null);
                    // VaadinSession.getCurrent().getSession().invalidate();
