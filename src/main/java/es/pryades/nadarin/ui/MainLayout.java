@@ -38,7 +38,6 @@ public class MainLayout extends AbstractAppRouterLayout implements BeforeEnterOb
                 getAppLayout().getTranslation("words.logout"),
                 e -> {
                     VaadinSession.getCurrent().setAttribute(Constants.USER_LOGGED_IN, null);
-                   // VaadinSession.getCurrent().getSession().invalidate();
                     UI.getCurrent().navigate(LoginView.ROUTE);
                 }));
     }

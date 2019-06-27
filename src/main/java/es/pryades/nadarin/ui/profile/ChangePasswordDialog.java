@@ -18,6 +18,8 @@ import es.pryades.nadarin.ioc.IOCManager;
 import es.pryades.nadarin.ui.NadarinStyles;
 import es.pryades.nadarin.ui.common.HasAppContext;
 import es.pryades.nadarin.ui.common.HasNotifications;
+import lombok.Getter;
+import lombok.Setter;
 
 public class ChangePasswordDialog extends Dialog implements HasNotifications, HasAppContext {
     private H3 title = new H3();
@@ -30,8 +32,23 @@ public class ChangePasswordDialog extends Dialog implements HasNotifications, Ha
     private UserDefault lastPassword1;
     private UserDefault lastPassword2;
 
+    @Getter
+    private boolean changed = false;
+
+    private String comment = null;
+
     public ChangePasswordDialog() {
         super();
+        init();
+    }
+
+    public ChangePasswordDialog(String comment) {
+        super();
+        this.comment = comment;
+        init();
+    }
+
+    private void init(){
         getElement().setAttribute("theme", NadarinStyles.THEME_DIALOG_SHORT);
         buidComponents();
         lastPassword1 = IOCManager._UserDefaultsManager.getUserDefault(getContext(), UserDefault.LAST_PASSWORD1);
@@ -46,6 +63,12 @@ public class ChangePasswordDialog extends Dialog implements HasNotifications, Ha
         title.setText(getTranslation("changepassword.title"));
         form.add(title);
         form.getElement().appendChild(ElementFactory.createBr());
+        if (comment != null){
+            Div div = new Div();
+            div.setText(comment);
+            div.setWidth("100%");
+            form.add(div);
+        }
         User user = getContext().getUser();
         newPassword = new PasswordField(getTranslation("changepassword.new"));
         reapeatPassword = new PasswordField(getTranslation("changepassword.repeat"));
@@ -87,6 +110,8 @@ public class ChangePasswordDialog extends Dialog implements HasNotifications, Ha
                 usuario.setRetries(0);
 
                 IOCManager._UsersManager.setPassword(getContext(), usuario, "", "", false);
+
+                changed = true;
 
                 showNotification( getTranslation( "ProfileDlg.password.changed" ) );
 

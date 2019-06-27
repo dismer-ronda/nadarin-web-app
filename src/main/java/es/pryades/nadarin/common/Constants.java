@@ -82,6 +82,7 @@ public class Constants
     public static final String USER_LOGGED_IN = "user.logged.in";
     public static final String LOGIN_ERROR_PAGE = "login/error";
 
+    //Duración de la notificación en milisegundos
 	public static final int NOTIFICATION_DURATION = 3000;
 
 }

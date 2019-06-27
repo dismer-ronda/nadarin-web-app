@@ -7,6 +7,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.renderer.TextRenderer;
+import com.vaadin.flow.data.validator.EmailValidator;
 import es.pryades.nadarin.common.HasLogger;
 import es.pryades.nadarin.dto.Profile;
 import es.pryades.nadarin.dto.User;
@@ -61,7 +62,9 @@ public class UserForm extends AbstractCrudForm<User> implements HasAppContext, H
         binder.forField(nameField).asRequired(getTranslation("words.required")).withNullRepresentation("").bind(User::getName, User::setName);
         binder.forField(loginField).asRequired(getTranslation("words.required")).withNullRepresentation("").bind(User::getLogin, User::setLogin);
         binder.forField(passwordField).asRequired(getTranslation("words.required")).withNullRepresentation("").bind(User::getPwd, User::setPwd);
-        binder.forField(emailField).asRequired(getTranslation("words.required")).withNullRepresentation("").bind(User::getEmail, User::setEmail);
+        binder.forField(emailField).asRequired(getTranslation("words.required"))
+                .withValidator(new EmailValidator(getTranslation("error.email.format")))
+                .withNullRepresentation("").bind(User::getEmail, User::setEmail);
         binder.forField(profilesComboBox).asRequired(getTranslation("words.required")).bind(User::getRef_profile, User::setRef_profile);
         binder.forField(tester).asRequired(getTranslation("words.required")).bind(User::getTester, User::setTester);
         binder.forField(passwordStatus).asRequired(getTranslation("words.required")).bind(User::getStatus, User::setStatus);
