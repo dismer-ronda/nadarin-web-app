@@ -1,6 +1,9 @@
 package es.pryades.nadarin.common;
 
-public class Constants 
+import java.util.Arrays;
+import java.util.List;
+
+public class Constants
 {
 	public static final String CHART_FONT_SIZE 					= "14px";
 
@@ -69,14 +72,10 @@ public class Constants
 
 	public static final int AUDIT_DURATION_DEFAULT					= 30;
 	
-	public static final int TASK_CLAZZES							= 5;
-	public static final int TASK_FIRST								= 100;
-
 	public static final int TASK_CLAZZ_DATABASE_UPDATE				= 100;
 	public static final int TASK_CLAZZ_DATABASE_QUERY				= 101;
-	public static final int TASK_CLAZZ_IMPORT_SYMBOLS				= 102;
-	public static final int TASK_CLAZZ_IMPORT_TECHNICALS			= 103;
-	public static final int TASK_CLAZZ_IMPORT_END_OF_DAYS			= 104;
+	public static final Integer[] TASK_CLAZZES						= {TASK_CLAZZ_DATABASE_UPDATE, TASK_CLAZZ_DATABASE_QUERY};
+
 
 	public static final String CONTEXT = "easy.stoks.context";
     public static final String USER_LOGGED_IN = "user.logged.in";

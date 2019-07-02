@@ -10,6 +10,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import es.pryades.nadarin.common.HasLogger;
 import es.pryades.nadarin.dto.BaseDto;
+import es.pryades.nadarin.ui.NadarinStyles;
 import org.claspina.confirmdialog.ButtonOption;
 import org.claspina.confirmdialog.ConfirmDialog;
 
@@ -17,9 +18,9 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
 
     protected Grid<T> grid = new Grid<>();
 
-    private Dialog editDialog = new Dialog();
+    protected Dialog editDialog = new Dialog();
 
-    public CrudView(){
+    public CrudView() {
         getContent().setSizeFull();
         buildBody();
         buildEditForm();
@@ -34,7 +35,7 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
 
     protected abstract void buildEditForm();
 
-    private void buildBody(){
+    private void buildBody() {
         Component header = getHeader();
         Component content = getContentArea();
         Component footer = getFooter();
@@ -53,9 +54,9 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
 
     protected abstract CrudPresenter<T, ?> getPresenter();
 
-    protected abstract CrudForm<T> getForm();
+    public abstract CrudForm<T> getForm();
 
-    protected abstract Binder<T> getBinder();
+    public abstract Binder<T> getBinder();
 
     public void clear() {
         getBinder().readBean(null);
@@ -69,19 +70,19 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
         showNotification(message, isPersistent);
     }
 
-    public void showCreatedNotification(){
+    public void showCreatedNotification() {
         showNotification(getCreatedMessage(), false);
     }
 
     protected abstract String getCreatedMessage();
 
-    public void showUpdatedNotification(){
+    public void showUpdatedNotification() {
         showNotification(getUpdatedMessage(), false);
     }
 
     protected abstract String getUpdatedMessage();
 
-    public void showDeletedNotification(){
+    public void showDeletedNotification() {
         showNotification(getDeletedMessage(), false);
     }
 
@@ -103,11 +104,11 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
         getForm().getFormTitle().setText((newEntity ? getNewTitle() : getEditTitle()));
     }
 
-    protected String getEditTitle(){
+    protected String getEditTitle() {
         return getTranslation("form.edit");
     }
 
-    protected String getNewTitle(){
+    protected String getNewTitle() {
         return getTranslation("form.new");
     }
 
@@ -118,13 +119,13 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
         return grid;
     }
 
-    public Grid<T> getGrid(){
+    public Grid<T> getGrid() {
         return grid;
     }
 
     protected abstract void setupGrid();
 
-    public void setupEventListeners(){
+    public void setupEventListeners() {
         getSearchBar().addSearchClickListener(event -> getPresenter().filter(getSearchBar().getQuery()));
         getSearchBar().addNewClickListener(event -> getPresenter().createNew());
 
@@ -136,24 +137,25 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
         });
 
         getForm().getButtons().addCancelListener(e -> getPresenter().close());
-        getForm().getButtons().addSaveListener( e -> getPresenter().save());
+        getForm().getButtons().addSaveListener(e -> getPresenter().save());
         getForm().getButtons().addDeleteListener(e -> getPresenter().delete());
     }
 
-    public void showConfirmDelete(ComponentEventListener<ClickEvent<Button>> listenerYes){
+    public void showConfirmDelete(ComponentEventListener<ClickEvent<Button>> listenerYes) {
         Button yes = new Button();
         yes.addThemeVariants(ButtonVariant.LUMO_ERROR);
         yes.addClickListener(listenerYes);
         Button no = new Button();
         //close.getElement().setAttribute("theme", "error secundary");
 
-        ConfirmDialog
-                .create()
-                .withCaption(getTranslation("words.confirm"))
+        ConfirmDialog confirm = ConfirmDialog.create();
+
+        confirm.withCaption(getTranslation("words.confirm"))
                 .withMessage(getDeleteConfirmMessage())
                 .withButton(no, ButtonOption.caption(getTranslation("words.no")), ButtonOption.closeOnClick(true))
-                .withButton(yes, ButtonOption.focus(), ButtonOption.caption(getTranslation("words.yes")), ButtonOption.closeOnClick(true))
-                .open();
+                .withButton(yes, ButtonOption.focus(), ButtonOption.caption(getTranslation("words.yes")), ButtonOption.closeOnClick(true));
+        confirm.getElement().setAttribute("theme", NadarinStyles.THEME_DIALOG_SHORT);
+        confirm.open();
     }
 
     protected abstract String getDeleteConfirmMessage();

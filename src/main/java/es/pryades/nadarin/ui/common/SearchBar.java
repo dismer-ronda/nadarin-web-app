@@ -8,13 +8,18 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import es.pryades.nadarin.dto.Query;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 import java.util.Objects;
 
 public abstract class SearchBar<Q extends Query> extends FlexLayout {
 
+    @Getter(AccessLevel.PROTECTED)
     Button showBarBtn;
+    @Getter(AccessLevel.PROTECTED)
     Button searchBtn;
+    @Getter(AccessLevel.PROTECTED)
     Button addBtn;
     FlexLayout filterActionBar;
     FlexLayout filterBar;

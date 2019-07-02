@@ -22,6 +22,7 @@ public class UserView extends CrudView<User> {
     private Binder<User> binder = new Binder<>(User.class);
 
     public UserView(){
+        super();
         UserService service = (UserService) IOCManager.getInstanceOf(UserService.class);
         presenter = new UserPresenter(getContext(), service, () -> new UserQuery());
         presenter.setView(this);
@@ -66,12 +67,12 @@ public class UserView extends CrudView<User> {
     }
 
     @Override
-    protected CrudForm<User> getForm() {
+    public CrudForm<User> getForm() {
         return form;
     }
 
     @Override
-    protected Binder<User> getBinder() {
+    public Binder<User> getBinder() {
         return binder;
     }
 
@@ -110,5 +111,15 @@ public class UserView extends CrudView<User> {
     @Override
     public Component getFooter() {
         return null;
+    }
+
+    @Override
+    protected String getEditTitle(){
+        return getTranslation("usersconfig.modify");
+    }
+
+    @Override
+    protected String getNewTitle(){
+        return getTranslation("usersconfig.new");
     }
 }

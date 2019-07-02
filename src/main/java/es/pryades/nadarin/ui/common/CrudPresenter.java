@@ -11,7 +11,7 @@ public class CrudPresenter<T extends BaseDto, V extends CrudView<T>> implements 
 
     @Getter(AccessLevel.PROTECTED)
     private NadarinDataProvider<T, Query> dataProvider;
-    @Getter(AccessLevel.PROTECTED)
+    @Getter
     private CrudView<T> view;
     @Getter(AccessLevel.PROTECTED)
     private CrudService<T> service;
@@ -41,9 +41,9 @@ public class CrudPresenter<T extends BaseDto, V extends CrudView<T>> implements 
         loadEntity(id, this::open);
     }
 
-    private T open(T entity) {
+    protected T open(T entity) {
         view.getBinder().readBean(entity);
-        view.getForm().getButtons().setDeleteDisabled(state.isNew());
+        view.getForm().getButtons().setDeleteVisible(!state.isNew());
         view.updateTitle(state.isNew());
         view.openDialog();
         return entity;
@@ -101,7 +101,7 @@ public class CrudPresenter<T extends BaseDto, V extends CrudView<T>> implements 
         }
     }
 
-    private boolean writeEntity() {
+    protected boolean writeEntity() {
         try {
             view.write(state.getEntity());
             return true;

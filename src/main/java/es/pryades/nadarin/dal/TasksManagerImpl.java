@@ -39,15 +39,11 @@ public class TasksManagerImpl extends BaseManagerImpl implements TasksManager
 	{
 		switch ( task.getClazz() )
 		{
-			//case Constants.TASK_CLAZZ_DATABASE_UPDATE:
-			//	return new DatabaseUpdateTaskAction();
+			case Constants.TASK_CLAZZ_DATABASE_UPDATE:
+				return new DatabaseUpdateTaskAction();
 
 			case Constants.TASK_CLAZZ_DATABASE_QUERY:
 				return new DatabaseQueryTaskAction();
-
-
-			//case Constants.TASK_CLAZZ_IMPORT_END_OF_DAYS:
-			//	return new ImportEndOfDayTaskAction();
 		}
 		
 		return null;
@@ -57,14 +53,11 @@ public class TasksManagerImpl extends BaseManagerImpl implements TasksManager
 	{
 		switch ( task )
 		{
-			//case Constants.TASK_CLAZZ_DATABASE_UPDATE:
-			//	return new DatabaseUpdateTaskAction();
+			case Constants.TASK_CLAZZ_DATABASE_UPDATE:
+				return new DatabaseUpdateTaskAction();
 
 			case Constants.TASK_CLAZZ_DATABASE_QUERY:
 				return new DatabaseQueryTaskAction();
-
-			//case Constants.TASK_CLAZZ_IMPORT_END_OF_DAYS:
-			//	return new ImportEndOfDayTaskAction();
 		}
 		
 		return null;

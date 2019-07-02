@@ -1,5 +1,6 @@
 package es.pryades.nadarin.ioc;
 
+import es.pryades.nadarin.dto.Parameter;
 import es.pryades.nadarin.services.*;
 import org.apache.tapestry5.ioc.ServiceBinder;
 
@@ -31,5 +32,7 @@ public class StandaloneModule
 
 		//Services
 		binder.bind( UserService.class, UserServiceImpl.class);
+		binder.bind( ParameterService.class, ParameterServiceImpl.class);
+		binder.bind( TaskService.class, TaskServiceImpl.class);
 	}
 }

@@ -10,6 +10,8 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import es.pryades.nadarin.ui.MainLayout;
+import es.pryades.nadarin.ui.settings.parameters.ParameterView;
+import es.pryades.nadarin.ui.settings.tasks.TaskView;
 import es.pryades.nadarin.ui.settings.users.UserView;
 
 import java.util.HashMap;
@@ -49,11 +51,18 @@ public class SettingsView extends Composite<VerticalLayout> {
 
     private void addUserTabs() {
         Tab tabUser = new Tab(getTranslation("usersconfig.tabname"));
-        tabs.add(tabUser);
-        UserView view = new UserView();
-        tabsToView.put(tabUser, view);
+        Tab tabParameter = new Tab(getTranslation("parametersconfig.name"));
+        Tab tabTask  = new Tab(getTranslation("tasksconfig.name"));
+        tabs.add(tabUser, tabParameter, tabTask);
+        UserView userView = new UserView();
+        ParameterView parameterView = new ParameterView();
+        TaskView taskView = new TaskView();
+
+        tabsToView.put(tabUser, userView);
+        tabsToView.put(tabParameter, parameterView);
+        tabsToView.put(tabTask, taskView);
 
         tabs.setSelectedTab(tabUser);
-        tabContent.add(view);
+        tabContent.add(userView);
     }
 }
