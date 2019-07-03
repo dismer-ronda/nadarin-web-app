@@ -12,8 +12,10 @@ import es.pryades.nadarin.dto.Task;
 import es.pryades.nadarin.dto.User;
 import es.pryades.nadarin.dto.query.UserQuery;
 import es.pryades.nadarin.ioc.IOCManager;
+import es.pryades.nadarin.processors.SignalsProcessor;
 import es.pryades.nadarin.ui.common.AbstractCrudForm;
 import es.pryades.nadarin.ui.common.HasAppContext;
+import es.pryades.nadarin.ui.common.HasNotifications;
 import lombok.AccessLevel;
 import lombok.Setter;
 
@@ -22,7 +24,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, HasLogger {
+public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, HasLogger, HasNotifications {
 
     private ComboBox<Integer> typeComboBox;
     private TextField descriptionField;
@@ -89,13 +91,13 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
     }
 
     private void executeNow() {
-        /*try {
+        try {
             SignalsProcessor.dispatchSignal(task);
 
-            Utils.showNotification(getContext(), getContext().getString("tasksConfig.dispatched"), Notification.Type.TRAY_NOTIFICATION);
+            showNotification(getTranslation("tasksConfig.dispatched"));
         } catch (Throwable e) {
-            Utils.logException(e, LOG);
-        }*/
+            getLogger().error("Error", e);
+        }
     }
 
     private void onChangeType() {
@@ -109,7 +111,6 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
     private void showTaskEditor() {
         componentTask.removeAll();
         actionEditor = null;
-        //actionComp = null;
 
         try {
             TaskAction action = IOCManager._TasksManager.getTaskAction(typeComboBox.getValue());
@@ -161,9 +162,4 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
             binder.forField(userComboBox).bind(Task::getRef_user, Task::setRef_user);
         }
     }
-
-    private void cambiando() {
-        System.out.println("Cambiando binder");
-    }
-
 }
