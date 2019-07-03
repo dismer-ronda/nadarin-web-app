@@ -35,6 +35,7 @@ public class TaskPresenter extends CrudPresenter<Task, TaskView> {
     protected Task open(Task entity) {
         getView().getBinder().readBean(entity);
         getView().getForm().getButtons().setDeleteVisible(!getState().isNew());
+        ((TaskForm)getView().getForm()).executeNow.setVisible(!getState().isNew());
         ((TaskForm)getView().getForm()).setTask(entity);
         getView().updateTitle(getState().isNew());
         getView().openDialog();

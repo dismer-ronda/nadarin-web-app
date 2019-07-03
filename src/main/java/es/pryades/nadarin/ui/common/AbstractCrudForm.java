@@ -16,14 +16,8 @@ public abstract class AbstractCrudForm<T> extends FlexLayout implements CrudForm
         setClassName("edit-form-content");
         form.add(title);
         form.getElement().appendChild(ElementFactory.createBr());
-        //Div editform = new Div(form);
-        //editform.setClassName("edit-form");
         add(form, buttonsBar);
         addEditComponents();
-
-        //form.setHeight("100%");
-        //form.getStyle().set("flex", "auto");
-        //form.getStyle().set("overflow", "auto");
     }
 
     protected abstract void addEditComponents();

@@ -1,18 +1,13 @@
 package es.pryades.nadarin.ui.settings.tasks;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
-import com.vaadin.flow.component.textfield.EmailField;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
-import com.vaadin.flow.data.renderer.TextRenderer;
-import com.vaadin.flow.data.validator.EmailValidator;
 import es.pryades.nadarin.common.*;
-import es.pryades.nadarin.dto.Profile;
 import es.pryades.nadarin.dto.Task;
 import es.pryades.nadarin.dto.User;
 import es.pryades.nadarin.dto.query.UserQuery;
@@ -22,7 +17,6 @@ import es.pryades.nadarin.ui.common.HasAppContext;
 import lombok.AccessLevel;
 import lombok.Setter;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -40,6 +34,7 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
     private TextField minuteField;
     private TextField timesField;
     private ComboBox<Long> userComboBox;
+    Button executeNow;
 
     private Map<Long, User> userMap;
     private Div componentTask;
@@ -86,6 +81,21 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
         componentTask.setWidth("100%");
         getForm().add(componentTask);
         componentTask.getElement().setAttribute("colspan", "2");
+
+        executeNow = new Button("Ejecutar ahora");
+        executeNow.addClickListener(event -> executeNow());
+        getButtons().add(executeNow);
+
+    }
+
+    private void executeNow() {
+        /*try {
+            SignalsProcessor.dispatchSignal(task);
+
+            Utils.showNotification(getContext(), getContext().getString("tasksConfig.dispatched"), Notification.Type.TRAY_NOTIFICATION);
+        } catch (Throwable e) {
+            Utils.logException(e, LOG);
+        }*/
     }
 
     private void onChangeType() {
@@ -105,7 +115,7 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
             TaskAction action = IOCManager._TasksManager.getTaskAction(typeComboBox.getValue());
 
             if (action != null) {
-                actionEditor = action.getTaskDataEditor( );
+                actionEditor = action.getTaskDataEditor();
 
                 if (actionEditor != null) {
                     componentTask.add(actionEditor.getComponent(task.getDetails(), false));

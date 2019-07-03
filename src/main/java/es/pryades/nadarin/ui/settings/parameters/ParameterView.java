@@ -39,15 +39,6 @@ public class ParameterView extends CrudView<Parameter> {
     @Override
     public Component getHeader() {
         searchBar =  new ParameterSearchBar();
-
-        /*String filename = Utils.getUUID()+".xls";
-        Anchor download = new Anchor(new StreamResource(filename, ()-> createResource()), "");
-        download.getElement().setAttribute("download", true);
-        Button button = new Button(getTranslation("words.download.xls"), VaadinIcon.DOWNLOAD.create());
-        button.setWidth("100%");
-        download.add(button);
-        searchBar.addToActionArea(download);*/
-
         return searchBar;
     }
 
@@ -103,7 +94,7 @@ public class ParameterView extends CrudView<Parameter> {
 
     @Override
     protected String getDeleteConfirmMessage() {
-        return getTranslation("usersconfig.confirm.delete");
+        return getTranslation("parameterconfig.confirm.delete");
     }
 
     @Override
