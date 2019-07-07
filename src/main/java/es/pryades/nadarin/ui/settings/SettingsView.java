@@ -20,6 +20,7 @@ import java.util.Map;
 @Route(value= SettingsView.ROUTE, layout = MainLayout.class)
 @RouteAlias(value = "", layout = MainLayout.class)
 @HtmlImport("styles.html")
+@HtmlImport("frontend://src/j-tooltip.html")
 @HtmlImport("icomoon-iconset-svg.html")
 public class SettingsView extends Composite<VerticalLayout> {
 

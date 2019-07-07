@@ -3,6 +3,9 @@ package es.pryades.nadarin.ui.settings.tasks;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
@@ -16,6 +19,7 @@ import es.pryades.nadarin.processors.SignalsProcessor;
 import es.pryades.nadarin.ui.common.AbstractCrudForm;
 import es.pryades.nadarin.ui.common.HasAppContext;
 import es.pryades.nadarin.ui.common.HasNotifications;
+import es.pryades.nadarin.ui.common.Tooltip;
 import lombok.AccessLevel;
 import lombok.Setter;
 
@@ -54,6 +58,7 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
     protected void addEditComponents() {
         typeComboBox = new ComboBox<>(getTranslation("taskconfig.clazz"));
         typeComboBox.setItems(Constants.TASK_CLAZZES);
+
         typeComboBox.setItemLabelGenerator(value -> getTranslation("task.clazz." + value));
         typeComboBox.addValueChangeListener(event -> onChangeType());
 
@@ -66,16 +71,46 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
         languageComboBox.setItemLabelGenerator(value -> getTranslation("language." + value));
 
         monthField = new TextField(getTranslation("taskconfig.month"));
+        monthField.setWidth("100%");
+        Icon iconMonth = new Icon(VaadinIcon.QUESTION);
+        Tooltip.addTo(iconMonth.getElement(), getTranslation("taskconfig.month.hint"));
+        HorizontalLayout divMonth = new HorizontalLayout(monthField, iconMonth);
+        divMonth.setAlignItems(Alignment.BASELINE);
+
         dayField = new TextField(getTranslation("taskconfig.day"));
+        dayField.setWidth("100%");
+        Icon iconDay = new Icon(VaadinIcon.QUESTION);
+        Tooltip.addTo(iconDay.getElement(), getTranslation("taskconfig.day.hint"));
+        HorizontalLayout divDay = new HorizontalLayout(dayField, iconDay);
+        divDay.setAlignItems(Alignment.BASELINE);
+
         hourField = new TextField(getTranslation("taskconfig.hour"));
+        hourField.setWidth("100%");
+        Icon iconHour = new Icon(VaadinIcon.QUESTION);
+        Tooltip.addTo(iconHour.getElement(), getTranslation("taskconfig.hour.hint"));
+        HorizontalLayout divHour = new HorizontalLayout(hourField, iconHour);
+        divHour.setAlignItems(Alignment.BASELINE);
+
         minuteField = new TextField(getTranslation("taskconfig.minute"));
+        minuteField.setWidth("100%");
+        Icon iconMinute = new Icon(VaadinIcon.QUESTION);
+        Tooltip.addTo(iconMinute.getElement(), getTranslation("taskconfig.minute.hint"));
+        HorizontalLayout divMinute = new HorizontalLayout(minuteField, iconMinute);
+        divMinute.setAlignItems(Alignment.BASELINE);
+
         timesField = new TextField(getTranslation("taskconfig.times"));
+        timesField.setWidth("100%");
+        Icon iconTimes = new Icon(VaadinIcon.QUESTION);
+        Tooltip.addTo(iconTimes.getElement(), getTranslation("taskconfig.times.hint"));
+        HorizontalLayout divTimes = new HorizontalLayout(timesField, iconTimes);
+        divTimes.setAlignItems(Alignment.BASELINE);
+
         if (getContext().getUser() != null && getContext().getUser().getRef_profile().equals(Constants.ID_PROFILE_DEVELOPER)) {
             userComboBox = new ComboBox<>(getTranslation("taskconfig.user"));
             fillComboUsers();
         }
 
-        getForm().add(typeComboBox, descriptionField, timeZoneComboBox, languageComboBox, monthField, dayField, hourField, minuteField, timesField);
+        getForm().add(typeComboBox, descriptionField, timeZoneComboBox, languageComboBox, divMonth, divDay, divHour, divMinute, divTimes);
         if (userComboBox != null) {
             getForm().add(userComboBox);
         }
