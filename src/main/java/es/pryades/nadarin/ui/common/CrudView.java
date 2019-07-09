@@ -24,9 +24,10 @@ public abstract class CrudView<T extends BaseDto> extends Composite<VerticalLayo
         getContent().setSizeFull();
         buildBody();
         buildEditForm();
+
         editDialog.add((Component) getForm());
-        //editDialog.setCloseOnEsc(false);
-        //editDialog.setCloseOnOutsideClick(false);
+        editDialog.setCloseOnEsc(false);
+        editDialog.setCloseOnOutsideClick(false);
         editDialog.setHeight("100%");
         // Workaround for https://github.com/vaadin/vaadin-dialog-flow/issues/28
         //dialog.getElement().addAttachListener(event -> UI.getCurrent().getPage().executeJavaScript(

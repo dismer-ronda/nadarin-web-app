@@ -27,7 +27,7 @@ public class ChangePasswordDialog extends Dialog implements HasNotifications, Ha
     private Div buttonsBar = new Div();
     private PasswordField newPassword;
     private PasswordField reapeatPassword;
-    private Button changePasswordBtn = new Button();
+    private Button changePasswordBtn;
 
     private UserDefault lastPassword1;
     private UserDefault lastPassword2;
@@ -45,6 +45,8 @@ public class ChangePasswordDialog extends Dialog implements HasNotifications, Ha
     public ChangePasswordDialog(String comment) {
         super();
         this.comment = comment;
+        setCloseOnEsc(false);
+        setCloseOnOutsideClick(false);
         init();
     }
 
@@ -75,11 +77,12 @@ public class ChangePasswordDialog extends Dialog implements HasNotifications, Ha
         form.add(newPassword, reapeatPassword);
 
         buttonsBar.setClassName("buttons-bar");
-        buttonsBar.add(changePasswordBtn);
-        changePasswordBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        changePasswordBtn.setText(getTranslation("words.change"));
-        changePasswordBtn.addClickListener(event -> onChangePassword());
+        changePasswordBtn = new Button(getTranslation("words.change"), event -> onChangePassword());
+        changePasswordBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        Button cancelBtn = new Button(getTranslation("words.cancel"), event -> close());
+        buttonsBar.add(changePasswordBtn,cancelBtn);
+
         content.add(form, buttonsBar);
         add(content);
     }

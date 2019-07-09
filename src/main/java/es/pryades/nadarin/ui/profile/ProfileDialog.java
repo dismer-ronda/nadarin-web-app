@@ -21,10 +21,12 @@ public class ProfileDialog extends Dialog implements HasNotifications, HasAppCon
     private TextField userName;
     private TextField email;
     private TextField name;
-    private Button changePasswordBtn = new Button();
+    private Button changePasswordBtn;
 
     public ProfileDialog() {
         super();
+        setCloseOnEsc(false);
+        setCloseOnOutsideClick(false);
         getElement().setAttribute("theme", NadarinStyles.THEME_DIALOG_SHORT);
         buidComponents();
     }
@@ -48,14 +50,14 @@ public class ProfileDialog extends Dialog implements HasNotifications, HasAppCon
         form.add(userName, email, name);
 
         buttonsBar.setClassName("buttons-bar");
-        buttonsBar.add(changePasswordBtn);
-        changePasswordBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-
-        changePasswordBtn.setText(getTranslation("profile.change.password"));
-        changePasswordBtn.addClickListener(event -> {
+        changePasswordBtn = new Button(getTranslation("profile.change.password"), event -> {
             ChangePasswordDialog dialog = new ChangePasswordDialog();
             dialog.open();
         });
+        Button cancelBtn = new Button(getTranslation("words.cancel"), event -> close());
+        buttonsBar.add(changePasswordBtn, cancelBtn);
+        changePasswordBtn.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
         content.add(form, buttonsBar);
         add(content);
     }

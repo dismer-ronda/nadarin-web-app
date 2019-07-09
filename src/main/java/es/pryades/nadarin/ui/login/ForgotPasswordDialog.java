@@ -27,6 +27,8 @@ public class ForgotPasswordDialog extends Dialog implements HasNotifications, Ha
 
     public ForgotPasswordDialog() {
         super();
+        //setCloseOnOutsideClick(false);
+        //setCloseOnEsc(false);
         getElement().setAttribute("theme", NadarinStyles.THEME_DIALOG_SHORT);
         buidComponents();
     }
