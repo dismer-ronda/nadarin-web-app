@@ -33,6 +33,7 @@ public class SettingsView extends Composite<VerticalLayout> {
 
     public SettingsView(){
         getContent().setSizeFull();
+        getContent().setMargin(false);
         tabsToView = new HashMap<>();
         tabs = new Tabs();
         tabs.setWidth("100%");
@@ -56,8 +57,11 @@ public class SettingsView extends Composite<VerticalLayout> {
         Tab tabTask  = new Tab(getTranslation("tasksconfig.name"));
         tabs.add(tabUser, tabParameter, tabTask);
         UserView userView = new UserView();
+        userView.getContent().setPadding(false);
         ParameterView parameterView = new ParameterView();
+        parameterView.getContent().setPadding(false);
         TaskView taskView = new TaskView();
+        taskView.getContent().setPadding(false);
 
         tabsToView.put(tabUser, userView);
         tabsToView.put(tabParameter, parameterView);
