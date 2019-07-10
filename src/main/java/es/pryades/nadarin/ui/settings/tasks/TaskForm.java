@@ -72,35 +72,40 @@ public class TaskForm extends AbstractCrudForm<Task> implements HasAppContext, H
 
         monthField = new TextField(getTranslation("taskconfig.month"));
         monthField.setWidth("100%");
-        Icon iconMonth = new Icon(VaadinIcon.QUESTION);
+        Icon iconMonth = new Icon(VaadinIcon.QUESTION_CIRCLE_O);
+        iconMonth.setSize("20px");
         Tooltip.addTo(iconMonth.getElement(), getTranslation("taskconfig.month.hint"));
         HorizontalLayout divMonth = new HorizontalLayout(monthField, iconMonth);
         divMonth.setAlignItems(Alignment.BASELINE);
 
         dayField = new TextField(getTranslation("taskconfig.day"));
         dayField.setWidth("100%");
-        Icon iconDay = new Icon(VaadinIcon.QUESTION);
+        Icon iconDay = new Icon(VaadinIcon.QUESTION_CIRCLE_O);
+        iconDay.setSize("20px");
         Tooltip.addTo(iconDay.getElement(), getTranslation("taskconfig.day.hint"));
         HorizontalLayout divDay = new HorizontalLayout(dayField, iconDay);
         divDay.setAlignItems(Alignment.BASELINE);
 
         hourField = new TextField(getTranslation("taskconfig.hour"));
         hourField.setWidth("100%");
-        Icon iconHour = new Icon(VaadinIcon.QUESTION);
+        Icon iconHour = new Icon(VaadinIcon.QUESTION_CIRCLE_O);
+        iconHour.setSize("20px");
         Tooltip.addTo(iconHour.getElement(), getTranslation("taskconfig.hour.hint"));
         HorizontalLayout divHour = new HorizontalLayout(hourField, iconHour);
         divHour.setAlignItems(Alignment.BASELINE);
 
         minuteField = new TextField(getTranslation("taskconfig.minute"));
         minuteField.setWidth("100%");
-        Icon iconMinute = new Icon(VaadinIcon.QUESTION);
+        Icon iconMinute = new Icon(VaadinIcon.QUESTION_CIRCLE_O);
+        iconMinute.setSize("20px");
         Tooltip.addTo(iconMinute.getElement(), getTranslation("taskconfig.minute.hint"));
         HorizontalLayout divMinute = new HorizontalLayout(minuteField, iconMinute);
         divMinute.setAlignItems(Alignment.BASELINE);
 
         timesField = new TextField(getTranslation("taskconfig.times"));
         timesField.setWidth("100%");
-        Icon iconTimes = new Icon(VaadinIcon.QUESTION);
+        Icon iconTimes = new Icon(VaadinIcon.QUESTION_CIRCLE_O);
+        iconTimes.setSize("20px");
         Tooltip.addTo(iconTimes.getElement(), getTranslation("taskconfig.times.hint"));
         HorizontalLayout divTimes = new HorizontalLayout(timesField, iconTimes);
         divTimes.setAlignItems(Alignment.BASELINE);
